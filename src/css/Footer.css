@@ -1,0 +1,48 @@
+footer {
+    display: flex;
+    justify-content: space-around;
+    background: linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.8) 20%, rgba(0, 0, 0, 0.6) 50%, rgba(0, 0, 0, 0.4) 80%, rgba(0, 0, 0, 0) 100%);
+    position: fixed;
+    bottom: 0.5px;
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    z-index: -0.5;
+  }
+  
+  footer .logo img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  }
+  
+  footer ul {
+    display: flex;
+    gap: 10px;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  footer ul li {
+    margin-left: 10px;
+  }
+  
+  footer ul a {
+    text-decoration: none;
+    color: white; /* Text color */
+  }
+  
+  footer ul a:hover {
+    color: brown; /* Change the color on hover */
+  }
+  
+  footer .icons {
+    margin-top: 15px;
+    display: flex;
+    gap: 5px;
+  }
+  

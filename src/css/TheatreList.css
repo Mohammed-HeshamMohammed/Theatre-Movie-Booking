@@ -1,0 +1,24 @@
+.boxs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+  gap: 30px;
+  padding: 20px;
+  overflow: hidden;
+  
+}
+.boxs img {
+  height: 300px;
+  object-fit: cover;
+
+}
+
+.boxs button {
+  display: block;
+  width: fit-content;
+  margin: auto;
+}
+.boxs a {
+  text-decoration: none;
+  color: white;
+  font-weight: 600;
+}

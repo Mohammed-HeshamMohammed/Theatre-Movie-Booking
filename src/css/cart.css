@@ -1,0 +1,103 @@
+.cart-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+ 
+}
+
+.cart-details {
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin-bottom: 20px;
+  background-color: white;
+  border-radius: 15px;
+}
+
+.cart-details h2 {
+  margin-bottom: 10px;
+}
+
+.cart-details p {
+  margin: 5px 0;
+}
+
+.proceed-button {
+  padding: 10px 20px;
+  font-size: 18px;
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.proceed-button:hover {
+  background-color: #218838;
+}
+
+.payment-methods {
+  display: flex;
+  flex-direction: column;
+}
+
+.payment-method {
+  margin-bottom: 10px;
+}
+
+.payment-method-button {
+  padding: 10px 20px;
+  font-size: 18px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.payment-method-button:hover {
+  background-color: #0056b3;
+}
+
+.paypal-form,
+.credit-card-form {
+  display: none;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.paypal-form input,
+.credit-card-form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.paypal-form button,
+.credit-card-form button {
+  padding: 10px 20px;
+  font-size: 18px;
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.paypal-form button:hover,
+.credit-card-form button:hover {
+  background-color: #218838;
+}
+
+.success-message-container {
+  margin-top: 20px;
+}
+
+.success-message {
+  padding: 10px;
+  background-color: #28a745;
+  color: #fff;
+  border-radius: 5px;
+}
+

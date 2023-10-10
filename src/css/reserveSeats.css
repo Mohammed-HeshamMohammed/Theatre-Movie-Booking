@@ -1,0 +1,87 @@
+/* ReserveSeats Component CSS */
+
+.theatre-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.info {
+  font-size: 18px;
+}
+
+.info .booked {
+  color: red;
+}
+
+.screen {
+  height: 30px;
+  background: black;
+  margin: 20px 0;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+}
+
+.seat {
+  font-size: 24px;
+  padding: 10px;
+  margin: 5px;
+  cursor: pointer;
+  color: white;
+}
+
+.seat.booked {
+  color: red;
+}
+
+button {
+  display: block;
+  margin: 20px auto;
+  font-size: 20px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.success-message-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.success-message {
+  background-color: green;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+
+.success-message-container .success-message {
+  text-align: center;
+}
+
+/* Adjust styles for the cart icon in the button */
+button .fa-shopping-cart {
+  margin-left: 10px;
+}
+/* ReserveSeats Component CSS */
+
+/* ReserveSeats Component CSS */
+
+.row {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.seat {
+  font-size: 24px;
+  padding: 10px;
+  margin: 5px;
+  cursor: pointer;
+  flex: 0 0 calc(10% - 10px); /* Adjust the width based on the number of seats */
+  max-width: calc(10% - 10px); /* Maximum width for each seat */
+}
+

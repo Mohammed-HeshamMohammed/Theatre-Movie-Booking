@@ -1,0 +1,81 @@
+.card.custom-card {
+    position: relative;
+    overflow: hidden;
+    border: none;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+    transition: transform 0.3s ease;
+    height: 500px;
+    width: 380px;
+}
+
+.card.custom-card .card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+.card.custom-card .card-body {
+    position: absolute;
+    bottom: -100%;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 1rem;
+    transition: bottom 0.3s ease-in-out;
+    border-radius: 0 0 15px 15px;
+}
+
+.card.custom-card .card-title,
+.card.custom-card .card-text {
+    display: none;
+}
+
+.card.custom-card .btn {
+    display: none;
+}
+
+.card.custom-card:hover {
+    transform: translateY(-10px);
+}
+
+.card.custom-card:hover .card-body {
+    bottom: 0;
+}
+
+.card.custom-card:hover .card-title,
+.card.custom-card:hover .card-text,
+.card.custom-card:hover .btn {
+    display: block;
+}
+
+.card.custom-card .btn {
+    margin-top: 1rem;
+}
+
+.custom-card:hover {
+    transform: translateY(-10px);
+}
+
+.custom-card:hover .card-body {
+    bottom: 0;
+}
+
+.custom-card:hover .card-title,
+.custom-card:hover .card-text,
+.custom-card:hover .btn {
+    display: block;
+}
+
+.custom-card .btn {
+    margin-top: 1rem;
+}
+
+/* Add more custom styles here */
+
+/* Example: Change background color on hover */
+.custom-card:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}

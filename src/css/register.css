@@ -1,0 +1,78 @@
+
+.register  {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 500px;
+  transform: translate(-50%, -50%);
+  background-image: url('../images/logoRegister.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  border-radius: 10px;
+  box-shadow: 0 0 7px #a00d0d;
+  padding: 15px; /* Add padding for better spacing */
+  max-width: 600px; /* Set a max width for the container */
+  width: 80%; 
+}
+
+.image {
+  width: 100%;
+  position: relative;
+  background-size: 200% 200%;
+  animation: gradientAnimation 10s infinite alternate linear;
+  bottom: 100px;
+}
+
+
+.image h2 {
+  font-size: 3rem;
+  color: transparent; /* Make the text transparent */
+  text-align: center;
+  padding: 20px;
+  background-image: linear-gradient(45deg, #ff6b6b, #ffe66d, #8cff66, #50c3ff, #a599e9); /* Gradient colors */
+  background-size: 200%; /* Adjust the gradient size */
+  border-radius: 30px;
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: gradientAnimation 2s linear infinite; /* Apply the gradient animation */
+}
+
+/* Adjust h2 styles for smaller screens */
+@media (max-width: 576px) {
+  .image h2 {
+    font-size: 2rem;
+    padding: 10px;
+  }
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  25% {
+    background-position: 25% 50%;
+  }
+  50% {
+    background-position: 50% 50%;
+  }
+  75% {
+    background-position: 75% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+body {
+  background: url('../images/wallapaper.jpg') no-repeat center center fixed;
+  background-size: cover;
+}
+
+
+.label {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Add a shadow to the text */
+  margin-bottom: 10px; /* Adjust margin */
+  font-weight: bold; /* Make the text bold */
+}

@@ -1,0 +1,273 @@
+#advertisementCarousel .carousel-item img {
+  width: 100%; /* Make the images responsive */
+}
+
+/* Styles for the image container and image name */
+.image-container {
+  position: relative;
+  border-radius: 15px;
+}
+
+.carousel-item img {
+  border-radius: 15px; /* Adjust the border-radius as needed */
+}
+
+.carousel-item img:hover {
+  border-radius: 15px; /* Same border-radius for hover */
+}
+.image-name {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 10px;
+  box-sizing: border-box;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.image-container:hover .image-name {
+  opacity: 1; /* Show on hover */
+}
+
+/* Additional styles for the homepage description */
+.homepage-description {
+  padding: 20px;
+}
+
+.homepage-description h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.homepage-description p {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+/* Adjustments for the carousel controls */
+.carousel-control-prev, .carousel-control-next {
+  width: 5%;
+}
+
+.carousel-control-prev-icon, .carousel-control-next-icon {
+  background-image: none; /* Remove default Bootstrap icon */
+  font-size: 2rem; /* Customize icon size */
+}
+
+.carousel-control-prev-icon::before {
+  content: '‹'; /* Unicode character for left arrow */
+}
+
+.carousel-control-next-icon::before {
+  content: '›'; /* Unicode character for right arrow */
+}
+body {
+  font-family: Arial, sans-serif;
+}
+
+/* Styles for the carousel */
+.carousel-inner .carousel-item {
+  min-height: 300px; /* Adjust the minimum height for the carousel items */
+}
+
+/* Styles for the carousel controls */
+.carousel-control-prev, .carousel-control-next {
+  width: 5%;
+}
+
+.carousel-control-prev-icon, .carousel-control-next-icon {
+  background-image: none;
+  font-size: 2rem;
+}
+
+.carousel-control-prev-icon::before {
+  content: '‹';
+}
+
+.carousel-control-next-icon::before {
+  content: '›';
+}
+
+/* Styles for the advertisement section */
+.advertisement {
+  margin-top: 20px;
+}
+
+.advertisement h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.advertisement p {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+/* Styles for the image containers and image names */
+.image-container {
+  position: relative;
+  overflow: hidden; /* Hide overflowing image */
+}
+
+.image-container img {
+  transition: transform 0.3s ease; /* Add transition for image zoom */
+}
+
+.image-container:hover img {
+  transform: scale(1.1); /* Zoom in on hover */
+}
+
+.image-name {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 10px;
+  box-sizing: border-box;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.image-container:hover .image-name {
+  opacity: 1;
+}
+
+/* Styles for the homepage description */
+.homepage-description {
+  padding: 20px;
+}
+
+.homepage-description h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.homepage-description p {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+.advertisement {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f7f7f7;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+  
+
+.advertisement h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.advertisement p {
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: #666;
+}
+
+/* Styles for the homepage description */
+.homepage-description {
+  padding: 20px;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.homepage-description h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.homepage-description p {
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: #666;
+}
+
+/* Hover effect for buttons */
+.btn:hover {
+  opacity: 0.8;
+  transform: translateY(-3px);
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .homepage-description {
+    padding: 10px;
+  }
+}
+.homepage-description {
+  padding: 20px;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  position: relative; /* Position relative to allow absolute positioning */
+}
+
+.homepage-description h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.homepage-description p {
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: #666;
+}
+
+.homepage-description {
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  color: white;
+  text-align: center;
+  background-size: 200% 200%; /* Adjust the size based on your preference */
+  animation: gradientAnimation 5s infinite alternate;
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+    background-color: #3498db;
+  }
+  25% {
+    background-position: 25% 50%;
+    background-color: #2ecc71;
+  }
+  50% {
+    background-position: 50% 50%;
+    background-color: #e74c3c;
+  }
+  75% {
+    background-position: 75% 50%;
+    background-color: #f39c12;
+  }
+  100% {
+    background-position: 100% 50%;
+    background-color: #9b59b6;
+  }
+}
+
+
+.homepage-description h2 {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+.homepage-description p {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+/* ... rest of the styles ... */
