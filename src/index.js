@@ -6,6 +6,7 @@ import { RouterProvider } from "react-router-dom";
 import { router } from "./Router";
 import { AuthProvider } from "./context/AuthContext";
 import { CartProvider } from "./context/CartContext";
+import { UIProvider } from "./context/UIContext";
 import reportWebVitals from "./reportWebVitals";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -13,7 +14,9 @@ root.render(
   <React.StrictMode>
     <AuthProvider>
       <CartProvider>
-        <RouterProvider router={router} />
+        <UIProvider>
+          <RouterProvider router={router} />
+        </UIProvider>
       </CartProvider>
     </AuthProvider>
   </React.StrictMode>

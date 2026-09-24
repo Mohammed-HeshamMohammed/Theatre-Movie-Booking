@@ -3,6 +3,7 @@ import { createMemoryRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
 import { AuthProvider } from "./context/AuthContext";
 import { CartProvider } from "./context/CartContext";
+import { UIProvider } from "./context/UIContext";
 
 test("renders the cinema home page", () => {
   const router = createMemoryRouter(
@@ -13,7 +14,9 @@ test("renders the cinema home page", () => {
   render(
     <AuthProvider>
       <CartProvider>
-        <RouterProvider router={router} />
+        <UIProvider>
+          <RouterProvider router={router} />
+        </UIProvider>
       </CartProvider>
     </AuthProvider>
   );
