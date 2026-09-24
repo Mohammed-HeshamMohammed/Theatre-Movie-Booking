@@ -7,6 +7,7 @@ import { router } from "./Router";
 import { AuthProvider } from "./context/AuthContext";
 import { CartProvider } from "./context/CartContext";
 import { UIProvider } from "./context/UIContext";
+import { MoviesProvider } from "./context/MoviesContext";
 import reportWebVitals from "./reportWebVitals";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -15,7 +16,9 @@ root.render(
     <AuthProvider>
       <CartProvider>
         <UIProvider>
-          <RouterProvider router={router} />
+          <MoviesProvider>
+            <RouterProvider router={router} />
+          </MoviesProvider>
         </UIProvider>
       </CartProvider>
     </AuthProvider>

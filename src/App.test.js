@@ -4,6 +4,7 @@ import App from "./App";
 import { AuthProvider } from "./context/AuthContext";
 import { CartProvider } from "./context/CartContext";
 import { UIProvider } from "./context/UIContext";
+import { MoviesProvider } from "./context/MoviesContext";
 
 test("renders the cinema home page", () => {
   const router = createMemoryRouter(
@@ -15,7 +16,9 @@ test("renders the cinema home page", () => {
     <AuthProvider>
       <CartProvider>
         <UIProvider>
-          <RouterProvider router={router} />
+          <MoviesProvider>
+            <RouterProvider router={router} />
+          </MoviesProvider>
         </UIProvider>
       </CartProvider>
     </AuthProvider>

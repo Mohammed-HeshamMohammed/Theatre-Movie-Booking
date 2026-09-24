@@ -5,10 +5,34 @@
   color: var(--color-text);
 }
 
-.seats-movie-title {
+.seats-movie-header {
   text-align: center;
-  font-weight: 700;
   margin-bottom: 1rem;
+}
+
+.seats-movie-title {
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.seats-movie-meta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.seats-rating-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: rgba(10, 10, 13, 0.85);
+  color: #f5c518;
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
 }
 
 .info {

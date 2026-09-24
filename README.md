@@ -18,6 +18,9 @@ check out. All in one clean flow.
 
 ## ✨ Features
 
+- **Real movie data** — posters, ratings, genres and YouTube trailers pulled
+  live from [TMDB](https://www.themoviedb.org/) (falls back to a small demo
+  catalogue if no API key is configured).
 - **Browse what's showing** — a scrollable "Now Showing" rail and full movie
   grid, each poster linking straight into booking.
 - **Live seat map** — pick your exact seats per showtime, see running totals
@@ -64,6 +67,26 @@ npm start
 Then open [http://localhost:3000](http://localhost:3000), create an account,
 and start booking.
 
+### Connecting real movie data (TMDB)
+
+By default the app runs on a small bundled demo catalogue — no setup
+required. To pull live posters, ratings, genres and trailers instead:
+
+1. Create a free account at [themoviedb.org](https://www.themoviedb.org/)
+   and grab your **API Key (v3 auth)** from Settings → API.
+2. Copy `.env.example` to `.env` and paste it in:
+   ```
+   REACT_APP_TMDB_API_KEY=your_key_here
+   ```
+3. Restart `npm start`.
+
+Deploying to Vercel (or another host)? Add the same
+`REACT_APP_TMDB_API_KEY` under Project Settings → Environment Variables and
+redeploy. If the key is missing or a request fails, the app silently falls
+back to the demo catalogue instead of breaking.
+
+This product uses the TMDB API but is not endorsed or certified by TMDB.
+
 ### Other scripts
 
 ```bash
@@ -76,10 +99,11 @@ npm test        # run the test suite
 ```
 src/
 ├── component/     # Pages & UI components (Home, TheatreList, ReserveSeats, Cart, Auth...)
-├── context/       # AuthContext & CartContext (global app state)
+├── context/       # Auth, Cart, Movies & Sidebar UI state (global app state)
+├── services/      # TMDB API client
 ├── css/           # Theme tokens + per-component styles
 ├── utils/         # Password hashing helper
-└── TheatreData.js # Movie, food & drink catalogue
+└── TheatreData.js # Offline demo movies + food & drink catalogue
 ```
 
 ## ⚠️ Note on scope

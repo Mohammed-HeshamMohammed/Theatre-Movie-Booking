@@ -73,3 +73,12 @@ a {
   border-color: var(--color-accent);
   color: var(--color-accent);
 }
+
+.movies-status {
+  color: var(--color-text-muted);
+  margin: 0.5rem 0 1.5rem;
+}
+
+.movies-status-error {
+  color: #f0b429;
+}

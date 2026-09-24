@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { theatreData } from "../TheatreData";
+import { useMovies } from "../context/MoviesContext";
 import { useCart } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
 import "../css/cart.css";
@@ -15,6 +15,7 @@ function formatCardNumber(value) {
 function Cart() {
   const { items, seatsByMovie, removeItem, itemsTotal, seatsTotal, grandTotal, clearCart, seatPrice } =
     useCart();
+  const { movies } = useMovies();
   const navigate = useNavigate();
 
   const [paymentMethodsVisible, setPaymentMethodsVisible] = useState(false);
@@ -94,7 +95,7 @@ function Cart() {
                 <h3 className="cart-subheading">Reserved Seats</h3>
                 <ul className="cart-list">
                   {seatEntries.map(([movieId, seats]) => {
-                    const movie = theatreData.find((m) => String(m.id) === movieId);
+                    const movie = movies.find((m) => String(m.id) === movieId);
                     return (
                       <li key={movieId} className="cart-list-item">
                         <span>

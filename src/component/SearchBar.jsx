@@ -1,9 +1,10 @@
 import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { theatreData } from "../TheatreData";
+import { useMovies } from "../context/MoviesContext";
 import "../css/SearchBar.css";
 
 const SearchBar = () => {
+  const { movies } = useMovies();
   const [searchTerm, setSearchTerm] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ const SearchBar = () => {
     const value = event.target.value;
     setSearchTerm(value);
 
-    const filteredMovies = theatreData.filter((movie) =>
+    const filteredMovies = movies.filter((movie) =>
       movie.title.toLowerCase().includes(value.toLowerCase())
     );
     setSuggestions(filteredMovies);
