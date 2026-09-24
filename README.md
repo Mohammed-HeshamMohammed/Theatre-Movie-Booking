@@ -1,78 +1,98 @@
+<div align="center">
 
+# 🎬 CineStream
 
-# If you like it Pls support me if possible for more content in the future
+**Book the seat. Skip the line. Never miss the trailer.**
 
-Paypal:mgamed2002@gmail.com
+A modern, dark-themed movie ticket & seat booking experience — browse what's
+playing, pick your seats on a live seat map, grab snacks on the way in, and
+check out. All in one clean flow.
 
--------------------------------------------------------------------------------------------------------------------------------------------------------
+</div>
 
-# Getting Started with Create React App
+<p align="center">
+  <img src="docs/screenshots/home.png" alt="CineStream home screen" width="100%" />
+</p>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+---
 
-## Available Scripts
+## ✨ Features
 
-In the project directory, you can run:
+- **Browse what's showing** — a scrollable "Now Showing" rail and full movie
+  grid, each poster linking straight into booking.
+- **Live seat map** — pick your exact seats per showtime, see running totals
+  update instantly.
+- **Snack Bar** — order popcorn, drinks, and combos alongside your tickets.
+- **One cart, everything in it** — seats and snacks share a single cart with
+  a running total, from any page.
+- **Accounts that actually work** — register, log in, stay logged in per
+  session; pages under `/home` are locked behind auth.
+- **Demo checkout** — a clearly-labeled simulated payment flow (PayPal /
+  card) so you can see the full journey end to end with zero real payment
+  data involved.
+- **Responsive, dark UI** — built around a poster-wall auth screen, a hero
+  banner, and genre pills, tuned for desktop and mobile alike.
 
-### `npm start`
+<p align="center">
+  <img src="docs/screenshots/login.png" alt="CineStream sign-in screen" width="100%" />
+</p>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 🎟️ The flow
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+| Browse | Reserve Seats | Cart & Checkout |
+| :---: | :---: | :---: |
+| ![Movies grid](docs/screenshots/movies.png) | ![Seat map](docs/screenshots/seats.png) | ![Cart](docs/screenshots/cart.png) |
 
-### `npm test`
+## 🛠️ Tech stack
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **React 18** + **React Router 6**
+- **Context API** for auth and cart state
+- **Bootstrap 5** / **React-Bootstrap** for layout primitives
+- **Font Awesome** + **react-icons** for iconography
+- Zero backend — accounts and cart are stored client-side, hashed passwords
+  included, so you can clone and run it in under a minute.
 
-### `npm run build`
+## 🚀 Getting started
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+git clone https://github.com/Mohammed-HeshamMohammed/Theatre-Movie-Booking.git
+cd Theatre-Movie-Booking
+npm install
+npm start
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Then open [http://localhost:3000](http://localhost:3000), create an account,
+and start booking.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Other scripts
 
-### `npm run eject`
+```bash
+npm run build   # production build in /build
+npm test        # run the test suite
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## 📂 Project structure
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
+src/
+├── component/     # Pages & UI components (Home, TheatreList, ReserveSeats, Cart, Auth...)
+├── context/       # AuthContext & CartContext (global app state)
+├── css/           # Theme tokens + per-component styles
+├── utils/         # Password hashing helper
+└── TheatreData.js # Movie, food & drink catalogue
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## ⚠️ Note on scope
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+This is a front-end demo project: there's no real backend, payment
+processor, or database. Accounts and bookings live in the browser
+(`localStorage`/`sessionStorage`), and checkout is fully simulated — don't
+enter real payment details anywhere in the app.
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+<div align="center">
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Built with React. Styled for the big screen.
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+</div>
