@@ -1,82 +1,87 @@
 import React, { useState } from "react";
-import "../css/login.css";
-import { useNavigate } from "react-router-dom";
-import { NavLink } from "react-router-dom";
+import "../css/auth.css";
+import { useNavigate, NavLink } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 function Login() {
-  const [email, setemail] = useState(``);
-  const [password, setpass] = useState(``);
-  const [errors, seterrors] = useState({});
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState({});
+  const [submitting, setSubmitting] = useState(false);
+  const { login } = useAuth();
   const navigate = useNavigate();
-  const Data = JSON.parse(localStorage.getItem("Data"));
 
   function formValidation() {
-    let isValid = true;
-    const errors = {};
-
-    if (!email || email !== Data[0].email) {
-      isValid = false;
-      errors.email = "Please enter your email";
+    const nextErrors = {};
+    if (!email) {
+      nextErrors.email = "Please enter your email.";
     } else if (!/\S+@\S+\.\S+/.test(email)) {
-      isValid = false;
-      errors.email = "Please enter a valid email address.";
+      nextErrors.email = "Please enter a valid email address.";
     }
-    if (!password || password !== Data[0].password) {
-      isValid = false;
-      errors.password = "please enter your password";
-    } else if (password.length < 10) {
-      isValid = false;
-      errors.password = "Password must be at least 10 characters long.";
+    if (!password) {
+      nextErrors.password = "Please enter your password.";
     }
-    seterrors(errors);
-    if (isValid) {
-      setemail("");
-      setpass("");
-    }
-    return isValid;
+    setErrors(nextErrors);
+    return Object.keys(nextErrors).length === 0;
   }
-  function handleLogin(e) {
+
+  async function handleLogin(e) {
     e.preventDefault();
-    if (formValidation()) {
-      navigate("/home");
+    if (!formValidation()) return;
+    setSubmitting(true);
+    const result = await login({ email, password });
+    setSubmitting(false);
+    if (!result.ok) {
+      setErrors({ form: result.error });
+      return;
     }
+    navigate("/home");
   }
+
   return (
-    <div className="login container  shadow-lg">
-      <div className="image w-100 position-relative">
-        <h2 className="position-absolute fs-1 text-black">Login</h2>
-      </div>
-      <form action="/home" className="form mt-5 p-2" onSubmit={handleLogin}>
-        <div className="form-group">
-          <label className=" text-danger">Email</label>
-          <input
-            type="email"
-            value={email || ``}
-            className="form-control"
-            placeholder="Email"
-            onChange={(e) => setemail(e.target.value)}
-          />
-          <p className="text-danger">{errors.email}</p>
+    <div className="auth-page">
+      <div className="auth-card shadow-lg">
+        <div className="auth-header">
+          <h2>Welcome Back</h2>
+          <p className="auth-subtitle">Sign in to keep watching and booking.</p>
         </div>
-        <div className="form-group">
-          <label className="mt-5 p-2 text-danger">Password</label>
-          <input
-            type="password"
-            value={password || ``}
-            className="form-control"
-            placeholder="Password"
-            onChange={(e) => setpass(e.target.value)}
-          />
-        </div>
-        <p className="text-danger">{errors.password}</p>
-        <button type="submit" className="btn btn-dark mt-5 w-100">
-          Login
-        </button>
-        <div className="text-center text-white mt-3">
-          Don't have  an account Yet?!!
-          <NavLink className="m-2" to="/Registeration" >/-Register Here-/</NavLink>
+        <form className="auth-form" onSubmit={handleLogin} noValidate>
+          <div className="form-group">
+            <label>Email</label>
+            <input
+              type="email"
+              value={email}
+              className="form-control"
+              placeholder="you@example.com"
+              autoComplete="email"
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            {errors.email && <p className="field-error">{errors.email}</p>}
           </div>
-      </form>
+          <div className="form-group">
+            <label>Password</label>
+            <input
+              type="password"
+              value={password}
+              className="form-control"
+              placeholder="Password"
+              autoComplete="current-password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            {errors.password && <p className="field-error">{errors.password}</p>}
+          </div>
+          {errors.form && <p className="field-error text-center">{errors.form}</p>}
+          <button type="submit" className="btn btn-primary-accent w-100" disabled={submitting}>
+            {submitting ? "Signing in..." : "Login"}
+          </button>
+          <div className="auth-switch">
+            Don't have an account yet?
+            <NavLink className="auth-link" to="/Registeration">
+              Register here
+            </NavLink>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

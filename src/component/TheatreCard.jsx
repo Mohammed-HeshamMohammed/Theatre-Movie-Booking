@@ -1,18 +1,18 @@
 import React from "react";
-import { Button, Card } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
-import '../css/TheatreCard.css';  // Make sure to import your updated CSS file
+import "../css/TheatreCard.css";
 
 function TheatreCard(props) {
   return (
-    <Card className="shadow custom-card">
-      <Card.Img className="card-image" variant="top" src={props.img} />
+    <Card className="custom-card">
+      <Card.Img className="card-image" variant="top" src={props.img} alt={props.title} />
       <div className="card-body">
-        <Card.Title className="text-danger">{props.title}</Card.Title>
+        <Card.Title>{props.title}</Card.Title>
         <Card.Text>{props.description}</Card.Text>
-        <Button className="btn btn-danger mt-3" variant="primary">
-          <NavLink to={"/home/seats/" + props.id}> Reserve Seats</NavLink>
-        </Button>
+        <NavLink to={"/home/seats/" + props.id} className="btn btn-primary-accent">
+          Reserve Seats
+        </NavLink>
       </div>
     </Card>
   );

@@ -1,28 +1,21 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
-import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "@fortawesome/react-fontawesome";
-import "@fortawesome/fontawesome-svg-core";
-import "@fortawesome/fontawesome-free";
-import "@fortawesome/free-regular-svg-icons";
-import "@fortawesome/free-solid-svg-icons";
-import "react-icons";
-import "@fortawesome/fontawesome-free-brands";
-import "@fortawesome/free-solid-svg-icons";
-import "@fortawesome/free-regular-svg-icons";
-import "./images/logoRegister.jpg";
-import "../src";
+import "./index.css";
 import { RouterProvider } from "react-router-dom";
 import { router } from "./Router";
+import { AuthProvider } from "./context/AuthContext";
+import { CartProvider } from "./context/CartContext";
+import reportWebVitals from "./reportWebVitals";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-
-  <RouterProvider router={router} />
-   
+    <AuthProvider>
+      <CartProvider>
+        <RouterProvider router={router} />
+      </CartProvider>
+    </AuthProvider>
   </React.StrictMode>
 );
 

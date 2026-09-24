@@ -109,7 +109,7 @@ export const drinks = [
     image: tea,
   },
   {
-    id: 3.,
+    id: 3,
     title: "Caffe",
     price: "$7",
     image: cafe,

@@ -4,6 +4,7 @@ import Registeration from "./component/Registeration";
 import App from "./App";
 import ReserveSeats from "./component/ReserveSeats";
 import TheatreList from "./component/TheatreList";
+import ProtectedRoute from "./component/ProtectedRoute";
 
 import Drink from "./component/Drink";
 import Food from "./component/Food";
@@ -12,28 +13,22 @@ import Cart from "./component/cart";
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <Login/>
+    element: <Login />,
   },
-  
+
   {
     path: "/Registeration",
-    element: <Registeration/>
+    element: <Registeration />,
   },
 
   {
     path: "/home",
-    element: <App />,
-    
+    element: (
+      <ProtectedRoute>
+        <App />
+      </ProtectedRoute>
+    ),
     children: [
-     
-      {
-        path: "/home/register",
-        element: <Registeration />,
-      },
-      {
-        path: "/home/login",
-        element: <Login />,
-      },
       {
         path: "/home/reserveSeats",
         element: <TheatreList />,
@@ -51,8 +46,8 @@ export const router = createBrowserRouter([
         element: <Food />,
       },
       {
-        path:"/home/cart",
-        element:<Cart/>,
+        path: "/home/cart",
+        element: <Cart />,
       },
     ],
   },

@@ -1,131 +1,105 @@
 import React, { useState } from "react";
-import "../images/logoRegister.jpg";
-import "../css/register.css";
+import "../css/auth.css";
 import { NavLink, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useAuth } from "../context/AuthContext";
 
 function Registeration() {
-  const [name, setname] = useState();
-  const [password, setpassword] = useState();
-  const [email, setemail] = useState();
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
   const [errors, setErrors] = useState({});
+  const [submitting, setSubmitting] = useState(false);
+  const { register } = useAuth();
   const nav = useNavigate();
-  useEffect(() => {
-    const savedData = JSON.parse(localStorage.getItem("Data"));
-    if (savedData) {
-      setname(savedData.name);
-      setpassword(savedData.password);
-      setemail(savedData.email);
-    }
-  }, []);
 
   function validForm() {
-    let isvalid = true;
-    let errors = {};
-    if (!name) {
-      isvalid = false;
-      errors.name = "Please enter your username.";
+    const nextErrors = {};
+    if (!name.trim()) {
+      nextErrors.name = "Please enter your username.";
     }
     if (!password) {
-      isvalid = false;
-      errors.password = "Please enter your password.";
-    } else if (password.length <= 10) {
-      isvalid = false;
-      errors.password = "Password must be at least 10 characters long.";
+      nextErrors.password = "Please enter your password.";
+    } else if (password.length < 10) {
+      nextErrors.password = "Password must be at least 10 characters long.";
     }
     if (!email) {
-      isvalid = false;
-      errors.email = "please enter your email";
+      nextErrors.email = "Please enter your email.";
     } else if (!/\S+@\S+\.\S+/.test(email)) {
-      isvalid = false;
-      errors.email = "Please enter a valid email address.";
+      nextErrors.email = "Please enter a valid email address.";
     }
-
-    setErrors(errors);
-
-    if (isvalid) {
-      setname("");
-      setpassword("");
-      setemail("");
-    }
-    return isvalid;
+    setErrors(nextErrors);
+    return Object.keys(nextErrors).length === 0;
   }
-  function handlesubmit(e) {
+
+  async function handleSubmit(e) {
     e.preventDefault();
-    if (validForm()) {
-      alert("Form submitted successfully!");
-      nav("/")
+    if (!validForm()) return;
+    setSubmitting(true);
+    const result = await register({ name: name.trim(), email, password });
+    setSubmitting(false);
+    if (!result.ok) {
+      setErrors({ form: result.error });
+      return;
     }
-    let FormData = { name, password, email };
-   
-    
-    localStorage.setItem("Data", JSON.stringify(FormData));
-    console.log(JSON.parse(localStorage.getItem("Data")));
-    let arrayData = [];
-    console.log(arrayData);
-    arrayData.push(JSON.parse(localStorage.getItem("Data")));
-    console.log(arrayData);
-    localStorage.setItem("Data", JSON.stringify(arrayData));
+    nav("/home");
   }
-  
+
   return (
-    <div className="register container  w-50 p-0 mt-5 shadow-lg">
-      <div className="image position-relative">
-        <h2 className="position-absolute text-dark fs-1">Register</h2>
-      </div>
-      <div className="form mt-4 p-3 mb-3">
-        <form method="get" onSubmit={handlesubmit}>
-          <div className="row">
-            <div className="form-group ">
-              <label className="mb-2 text-danger" htmlFor="inputEmail4">
-                UserName
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="inputuser4"
-                value={name || ``}
-                placeholder="username"
-                onChange={(e) => setname(e.target.value)}
-              />
-            </div>
-            <div className="text-danger error">{errors.name}</div>
-            <div className="form-group ">
-              <label className="mb-3 text-danger" htmlFor="inputPassword4">
-                <br></br><br></br>
-                Password
-              </label>
-              <input
-                type="password"
-                className="form-control"
-                id="inputPassword4"
-                value={password || ``}
-                placeholder="Password"
-                onChange={(e) => setpassword(e.target.value)}
-              />
-            </div>
-            <div className="text-danger error">{errors.password}</div>
-            <div className="form-group ">
-              <label className="mt-5   text-danger" htmlFor="inputEmail4">
-                Email
-              </label>
-              <input
-                type="email"
-                className="form-control "
-                id="inputEmail4"
-                value={email || ``}
-                placeholder="Email"
-                onChange={(e) => setemail(e.target.value)}
-              />
-            </div>
-            <div className="text-danger error">{errors.email}</div>
+    <div className="auth-page">
+      <div className="auth-card shadow-lg">
+        <div className="auth-header">
+          <h2>Create Account</h2>
+          <p className="auth-subtitle">Join to book seats and order snacks online.</p>
+        </div>
+        <form className="auth-form" onSubmit={handleSubmit} noValidate>
+          <div className="form-group">
+            <label htmlFor="inputUser">Username</label>
+            <input
+              type="text"
+              className="form-control"
+              id="inputUser"
+              value={name}
+              placeholder="Username"
+              autoComplete="username"
+              onChange={(e) => setName(e.target.value)}
+            />
+            {errors.name && <p className="field-error">{errors.name}</p>}
           </div>
-          <button type="submit" className="btn btn-dark mt-4 w-100">
-            Register
+          <div className="form-group">
+            <label htmlFor="inputPassword">Password</label>
+            <input
+              type="password"
+              className="form-control"
+              id="inputPassword"
+              value={password}
+              placeholder="Password"
+              autoComplete="new-password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            {errors.password && <p className="field-error">{errors.password}</p>}
+          </div>
+          <div className="form-group">
+            <label htmlFor="inputEmail">Email</label>
+            <input
+              type="email"
+              className="form-control"
+              id="inputEmail"
+              value={email}
+              placeholder="Email"
+              autoComplete="email"
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            {errors.email && <p className="field-error">{errors.email}</p>}
+          </div>
+          {errors.form && <p className="field-error text-center">{errors.form}</p>}
+          <button type="submit" className="btn btn-primary-accent w-100" disabled={submitting}>
+            {submitting ? "Creating account..." : "Register"}
           </button>
-          <div className="text-center text-white mt-2">
-          Already have  an account !  
-          <NavLink className="m-2" to="/" >Login</NavLink>
+          <div className="auth-switch">
+            Already have an account?
+            <NavLink className="auth-link" to="/">
+              Login
+            </NavLink>
           </div>
         </form>
       </div>

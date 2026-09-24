@@ -1,15 +1,15 @@
 .boxs {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 30px;
   padding: 20px;
-  overflow: hidden;
-  
+  max-width: var(--max-content-width);
+  margin: 0 auto;
 }
+
 .boxs img {
   height: 300px;
   object-fit: cover;
-
 }
 
 .boxs button {
@@ -17,8 +17,9 @@
   width: fit-content;
   margin: auto;
 }
+
 .boxs a {
   text-decoration: none;
-  color: white;
+  color: #fff;
   font-weight: 600;
 }

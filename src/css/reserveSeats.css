@@ -1,87 +1,84 @@
-/* ReserveSeats Component CSS */
-
 .theatre-container {
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 2rem 1rem 3rem;
+  color: var(--color-text);
+}
+
+.seats-movie-title {
+  text-align: center;
+  font-weight: 700;
+  margin-bottom: 1rem;
 }
 
 .info {
-  font-size: 18px;
+  font-size: 1rem;
+  color: var(--color-text-muted);
 }
 
 .info .booked {
-  color: red;
+  color: var(--color-accent);
 }
 
 .screen {
-  height: 30px;
-  background: black;
-  margin: 20px 0;
+  height: 10px;
+  background: linear-gradient(to right, transparent, #fff, transparent);
+  opacity: 0.7;
+  border-radius: 50%;
+  margin: 2rem auto 2.5rem;
+  width: 80%;
+  box-shadow: 0 -8px 30px 6px rgba(255, 255, 255, 0.35);
 }
 
 .row {
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(10, minmax(0, 1fr));
+  gap: 10px;
+  max-width: 640px;
+  margin: 0 auto;
 }
 
 .seat {
-  font-size: 24px;
-  padding: 10px;
-  margin: 5px;
+  font-size: 1.4rem;
+  text-align: center;
+  padding: 6px;
   cursor: pointer;
-  color: white;
+  color: var(--color-text-muted);
+  transition: transform 0.15s ease, color 0.15s ease;
+}
+
+.seat:hover {
+  transform: scale(1.15);
+  color: var(--color-text);
 }
 
 .seat.booked {
-  color: red;
+  color: var(--color-accent);
 }
 
-button {
-  display: block;
-  margin: 20px auto;
-  font-size: 20px;
-  padding: 10px 20px;
-  cursor: pointer;
+.go-to-cart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 2.5rem auto 0;
 }
 
 .success-message-container {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 1.25rem;
 }
 
 .success-message {
-  background-color: green;
-  color: white;
+  background-color: var(--color-success);
+  color: #fff;
   padding: 10px 20px;
-  border-radius: 5px;
-}
-
-.success-message-container .success-message {
+  border-radius: var(--radius-sm);
   text-align: center;
 }
 
-/* Adjust styles for the cart icon in the button */
-button .fa-shopping-cart {
-  margin-left: 10px;
+@media (max-width: 576px) {
+  .row {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
 }
-/* ReserveSeats Component CSS */
-
-/* ReserveSeats Component CSS */
-
-.row {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.seat {
-  font-size: 24px;
-  padding: 10px;
-  margin: 5px;
-  cursor: pointer;
-  flex: 0 0 calc(10% - 10px); /* Adjust the width based on the number of seats */
-  max-width: calc(10% - 10px); /* Maximum width for each seat */
-}
-

@@ -1,210 +1,242 @@
-import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import React, { useState } from "react";
+import { theatreData } from "../TheatreData";
+import { useCart } from "../context/CartContext";
+import { useNavigate } from "react-router-dom";
 import "../css/cart.css";
 
+function formatCardNumber(value) {
+  return value
+    .replace(/\D/g, "")
+    .slice(0, 16)
+    .replace(/(.{4})/g, "$1 ")
+    .trim();
+}
+
 function Cart() {
-  const location = useLocation();
-  const [cartItems, setCartItems] = useState([]);
-  const [cartSeats, setCartSeats] = useState([]);
-  const [cartVisible, setCartVisible] = useState(true);
+  const { items, seatsByMovie, removeItem, itemsTotal, seatsTotal, grandTotal, clearCart, seatPrice } =
+    useCart();
+  const navigate = useNavigate();
+
   const [paymentMethodsVisible, setPaymentMethodsVisible] = useState(false);
+  const [activeMethod, setActiveMethod] = useState(null); // "card" | "paypal"
   const [paymentSuccessMessage, setPaymentSuccessMessage] = useState("");
-  const [creditCardDetails, setCreditCardDetails] = useState({
+  const [cardDetails, setCardDetails] = useState({
     cardNumber: "",
     cardHolder: "",
     expiryDate: "",
     cvv: "",
   });
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [isCreditCardFormVisible, setCreditCardFormVisible] = useState(false);
-  const [isPayPalFormVisible, setPayPalFormVisible] = useState(false);
-  const [cartItemPrice, setCartItemPrice] = useState(0);
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
+  const [paypalEmail, setPaypalEmail] = useState("");
 
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
-  const handlePayNowClick = () => {
-    // Handle PayPal payment here using the collected email and password
-    setPaymentSuccessMessage('Processing PayPal payment with email:');
-  };
+  const seatEntries = Object.entries(seatsByMovie).filter(([, seats]) => seats.length > 0);
+  const hasSeats = seatEntries.length > 0;
+  const isEmpty = items.length === 0 && !hasSeats;
 
-  // Access the price passed via location state
-  const { state } = location;
-  const price = state ? state.price : null;
-
-  const handlePayment = () => {
-    // Display payment methods
-    setPaymentMethodsVisible(!paymentMethodsVisible);
-  };
-  const togglePayPalForm = () => {
-    setPayPalFormVisible(!isPayPalFormVisible);
-    setCreditCardFormVisible(false);  // Hide Credit Card form when toggling PayPal
-  };
-  
-  // Function to toggle Credit Card form visibility
-  const toggleCreditCardForm = () => {
-    setCreditCardFormVisible(!isCreditCardFormVisible);
-    setPayPalFormVisible(false);  // Hide PayPal form when toggling Credit Card
-  };
-
-  const handlePayWithPayPal = () => {
-    // Display success message for PayPal payment
-    setPaymentSuccessMessage("Payment Successful via PayPal! Redirecting to the homepage in 5 seconds...");
-
-    // Redirect to the homepage after 5 seconds
-    setTimeout(() => {
-      window.location.href = "/home";
-    }, 5000);
-  };
-
-  const handlePayWithCreditCard = () => {
-    // Display success message for credit card payment
-    setPaymentSuccessMessage("Payment Successful via Credit Card! Redirecting to the homepage in 5 seconds...");
-
-    // Redirect to the homepage after 5 seconds
-    setTimeout(() => {
-      window.location.href = "/home";
-    }, 5000);
-  };
-
-  const handleCreditCardInputChange = (event) => {
+  const handleCardInputChange = (event) => {
     const { name, value } = event.target;
-    setCreditCardDetails({ ...creditCardDetails, [name]: value });
+    const nextValue = name === "cardNumber" ? formatCardNumber(value) : value;
+    setCardDetails((prev) => ({ ...prev, [name]: nextValue }));
   };
 
-  useEffect(() => {
-    // Retrieve the item price from local storage
-    const itemPrice = parseInt(localStorage.getItem('cartItemPrice'), 10);
-    if (!isNaN(itemPrice)) {
-      setCartItemPrice(itemPrice);
-    }
-  }, []);
+  const confirmPayment = (method) => {
+    setPaymentSuccessMessage(
+      `Payment simulated via ${method}! This is a demo checkout - no card or account details are sent or stored. Redirecting to the homepage...`
+    );
+    setCardDetails({ cardNumber: "", cardHolder: "", expiryDate: "", cvv: "" });
+    setPaypalEmail("");
+    clearCart();
+    setTimeout(() => navigate("/home"), 4000);
+  };
 
-  
+  if (isEmpty && !paymentSuccessMessage) {
+    return (
+      <div className="cart-container">
+        <div className="cart-details">
+          <h2>Your Cart</h2>
+          <p>Your cart is empty. Go grab some snacks or reserve a seat!</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <>
-      {cartVisible && (
-        <div className="cart-container">
+    <div className="cart-container">
+      {!paymentSuccessMessage && (
+        <>
           <div className="cart-details">
-            <h2>Cart</h2>
-            <p>Seats added: {cartSeats.length}</p>
-            <p>Items added: {cartItems.length}</p>
-            <p>Item Price: ${cartItemPrice}</p>
+            <h2>Your Cart</h2>
 
-            {/* Display cart contents */}
-            <ul>
-              {cartItems.map((item, index) => (
-                <li key={index}>
-                  Product: {item.name}, Price: ${item.price}
-                </li>
-              ))}
-            </ul>
-  
-            {/* Total */}
-            <p>
-              Total: $
-              {cartItems.reduce((total, item) => total + item.price, 0).toFixed(2)}
+            {items.length > 0 && (
+              <>
+                <h3 className="cart-subheading">Food &amp; Drinks</h3>
+                <ul className="cart-list">
+                  {items.map((item) => (
+                    <li key={`${item.category}-${item.id}`} className="cart-list-item">
+                      <span>
+                        {item.title} x{item.qty}
+                      </span>
+                      <span>${(item.price * item.qty).toFixed(2)}</span>
+                      <button
+                        className="remove-item-btn"
+                        onClick={() => removeItem(item.id, item.category)}
+                        aria-label={`Remove ${item.title}`}
+                      >
+                        &times;
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+
+            {hasSeats && (
+              <>
+                <h3 className="cart-subheading">Reserved Seats</h3>
+                <ul className="cart-list">
+                  {seatEntries.map(([movieId, seats]) => {
+                    const movie = theatreData.find((m) => String(m.id) === movieId);
+                    return (
+                      <li key={movieId} className="cart-list-item">
+                        <span>
+                          {movie ? movie.title : "Movie"} - {seats.length} seat(s)
+                        </span>
+                        <span>${(seats.length * seatPrice).toFixed(2)}</span>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </>
+            )}
+
+            <p className="cart-total">
+              Total: ${grandTotal.toFixed(2)}
+              <span className="cart-total-breakdown">
+                {" "}
+                (Snacks ${itemsTotal.toFixed(2)} + Seats ${seatsTotal.toFixed(2)})
+              </span>
             </p>
           </div>
-  
-          <button className="proceed-button" onClick={handlePayment}>
-  {paymentMethodsVisible ? 'Hide Payment Methods' : 'Proceed to Payment'}
-</button>
 
-  
+          <button
+            className="proceed-button"
+            onClick={() => setPaymentMethodsVisible(!paymentMethodsVisible)}
+          >
+            {paymentMethodsVisible ? "Hide Payment Methods" : "Proceed to Payment"}
+          </button>
+
           {paymentMethodsVisible && (
             <div className="payment-methods">
+              <p className="payment-demo-notice">
+                Demo checkout only - this project has no real payment backend. Do not enter real
+                card numbers or account credentials.
+              </p>
               <div className="payment-method">
-                <button className="payment-method-button" onClick={togglePayPalForm}>
+                <button
+                  className="payment-method-button"
+                  onClick={() => setActiveMethod(activeMethod === "paypal" ? null : "paypal")}
+                >
                   Pay with PayPal
                 </button>
-                {isPayPalFormVisible && (
+                {activeMethod === "paypal" && (
                   <div className="paypal-form">
-                    <h3>PayPal Payment Form</h3>
-                    <form>
-                      <div>
-                        <label>Email:</label>
-                        <input type="email" value={email} onChange={handleEmailChange} />
-                      </div>
-                      <div>
-                        <label>Password:</label>
-                        <input type="password" value={password} onChange={handlePasswordChange} />
-                      </div>
-                      <button type="button" onClick={handlePayNowClick}>
-                        Pay Now with PayPal
-                      </button>
-                    </form>
+                    <h3>PayPal (Simulated)</h3>
+                    <div className="form-group">
+                      <label>Email:</label>
+                      <input
+                        type="email"
+                        autoComplete="off"
+                        value={paypalEmail}
+                        onChange={(e) => setPaypalEmail(e.target.value)}
+                      />
+                    </div>
+                    <button
+                      type="button"
+                      className="btn btn-primary-accent"
+                      onClick={() => confirmPayment("PayPal")}
+                    >
+                      Pay Now with PayPal
+                    </button>
                   </div>
                 )}
               </div>
-  
+
               <div className="payment-method">
-                <button className="payment-method-button" onClick={toggleCreditCardForm}>
+                <button
+                  className="payment-method-button"
+                  onClick={() => setActiveMethod(activeMethod === "card" ? null : "card")}
+                >
                   Pay with Credit Card
                 </button>
-            {/* Credit Card Form */}
-            {isCreditCardFormVisible && (
-              <div className="credit-card-form">
-                <h3>Pay with Credit Card</h3>
-                <form>
-                  <div className="form-group">
-                    <label>Card Number:</label>
-                    <input
-                      type="text"
-                      name="cardNumber"
-                      value={creditCardDetails.cardNumber}
-                      onChange={handleCreditCardInputChange}
-                    />
+                {activeMethod === "card" && (
+                  <div className="credit-card-form">
+                    <h3>Pay with Credit Card (Simulated)</h3>
+                    <div className="form-group">
+                      <label>Card Number:</label>
+                      <input
+                        type="text"
+                        name="cardNumber"
+                        inputMode="numeric"
+                        autoComplete="off"
+                        placeholder="0000 0000 0000 0000"
+                        value={cardDetails.cardNumber}
+                        onChange={handleCardInputChange}
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label>Card Holder:</label>
+                      <input
+                        type="text"
+                        name="cardHolder"
+                        autoComplete="off"
+                        value={cardDetails.cardHolder}
+                        onChange={handleCardInputChange}
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label>Expiry Date:</label>
+                      <input
+                        type="text"
+                        name="expiryDate"
+                        placeholder="MM/YY"
+                        autoComplete="off"
+                        value={cardDetails.expiryDate}
+                        onChange={handleCardInputChange}
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label>CVV:</label>
+                      <input
+                        type="password"
+                        name="cvv"
+                        inputMode="numeric"
+                        maxLength={4}
+                        autoComplete="off"
+                        value={cardDetails.cvv}
+                        onChange={handleCardInputChange}
+                      />
+                    </div>
+                    <button
+                      type="button"
+                      className="btn btn-primary-accent"
+                      onClick={() => confirmPayment("Credit Card")}
+                    >
+                      Pay with Credit Card
+                    </button>
                   </div>
-                  <div className="form-group">
-                    <label>Card Holder:</label>
-                    <input
-                      type="text"
-                      name="cardHolder"
-                      value={creditCardDetails.cardHolder}
-                      onChange={handleCreditCardInputChange}
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label>Expiry Date:</label>
-                    <input
-                      type="text"
-                      name="expiryDate"
-                      value={creditCardDetails.expiryDate}
-                      onChange={handleCreditCardInputChange}
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label>CVV:</label>
-                    <input
-                      type="text"
-                      name="cvv"
-                      value={creditCardDetails.cvv}
-                      onChange={handleCreditCardInputChange}
-                    />
-                  </div>
-                  </form>
-                  <button onClick={handlePayWithCreditCard}>Pay with Credit Card</button>
-                </div>
-              )}
+                )}
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </>
+      )}
 
-        {paymentSuccessMessage && (
-          <div className="success-message-container">
-            <div className="success-message">{paymentSuccessMessage}</div>
-          </div>
-        )}
-      </div>
-    )}
-  </>
-);
-
+      {paymentSuccessMessage && (
+        <div className="success-message-container">
+          <div className="success-message">{paymentSuccessMessage}</div>
+        </div>
+      )}
+    </div>
+  );
 }
 
 export default Cart;

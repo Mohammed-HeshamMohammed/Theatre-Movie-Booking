@@ -1,0 +1,86 @@
+.auth-page {
+  min-height: calc(100vh - var(--nav-height, 76px));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1rem;
+  background: radial-gradient(circle at top, #1a1a24 0%, var(--color-bg) 60%);
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 440px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem;
+}
+
+.auth-header {
+  text-align: center;
+  margin-bottom: 1.75rem;
+}
+
+.auth-header h2 {
+  color: var(--color-text);
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+}
+
+.auth-subtitle {
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.auth-form .form-group {
+  margin-bottom: 1.1rem;
+}
+
+.auth-form label {
+  display: block;
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  margin-bottom: 0.4rem;
+}
+
+.auth-form .form-control {
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  border-radius: var(--radius-sm);
+  padding: 0.65rem 0.9rem;
+}
+
+.auth-form .form-control:focus {
+  background: var(--color-bg-elevated);
+  color: var(--color-text);
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px var(--color-accent-soft);
+}
+
+.auth-form .form-control::placeholder {
+  color: #6b6b76;
+}
+
+.field-error {
+  color: var(--color-accent);
+  font-size: 0.82rem;
+  margin: 0.35rem 0 0;
+}
+
+.auth-switch {
+  text-align: center;
+  color: var(--color-text-muted);
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.auth-link {
+  color: var(--color-accent);
+  font-weight: 600;
+  margin-left: 0.4rem;
+}
+
+.auth-link:hover {
+  color: var(--color-accent-hover);
+}
