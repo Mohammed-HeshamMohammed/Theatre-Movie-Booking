@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import "../css/auth.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import AuthLayout from "./AuthLayout";
 
 function Registeration() {
   const [name, setName] = useState("");
@@ -45,11 +45,12 @@ function Registeration() {
   }
 
   return (
-    <div className="auth-page">
+    <AuthLayout>
       <div className="auth-card shadow-lg">
         <div className="auth-header">
+          <span className="auth-tag">Join CineStream</span>
           <h2>Create Account</h2>
-          <p className="auth-subtitle">Join to book seats and order snacks online.</p>
+          <p className="auth-subtitle">Book seats and order snacks online.</p>
         </div>
         <form className="auth-form" onSubmit={handleSubmit} noValidate>
           <div className="form-group">
@@ -103,7 +104,7 @@ function Registeration() {
           </div>
         </form>
       </div>
-    </div>
+    </AuthLayout>
   );
 }
 

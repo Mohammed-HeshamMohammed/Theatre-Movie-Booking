@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import "../css/auth.css";
 import { useNavigate, NavLink } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import AuthLayout from "./AuthLayout";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -39,11 +39,12 @@ function Login() {
   }
 
   return (
-    <div className="auth-page">
+    <AuthLayout>
       <div className="auth-card shadow-lg">
         <div className="auth-header">
-          <h2>Welcome Back</h2>
-          <p className="auth-subtitle">Sign in to keep watching and booking.</p>
+          <span className="auth-tag">Welcome Back</span>
+          <h2>Sign in to CineStream</h2>
+          <p className="auth-subtitle">Keep watching, keep booking.</p>
         </div>
         <form className="auth-form" onSubmit={handleLogin} noValidate>
           <div className="form-group">
@@ -82,7 +83,7 @@ function Login() {
           </div>
         </form>
       </div>
-    </div>
+    </AuthLayout>
   );
 }
 
