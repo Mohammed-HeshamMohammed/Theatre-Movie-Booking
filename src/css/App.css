@@ -1,0 +1,6 @@
+/* The nav is fixed/transparent (see Navs.css) so it no longer reserves
+   layout space; routed pages need to clear it themselves. The home hero
+   is exempt on purpose - it's meant to run full-bleed under the nav. */
+.page-content:not(:empty) {
+  padding-top: var(--nav-height);
+}
